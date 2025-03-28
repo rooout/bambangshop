@@ -78,6 +78,43 @@ This is the place for you to write reflections:
 
 #### Reflection Publisher-1
 
+1. Penggunaan Struct dalam Pola Observer pada BambangShop
+Dalam pola Observer, secara tradisional Subscriber didefinisikan sebagai sebuah interface. Namun, dalam konteks BambangShop, kita dapat menggunakan trait untuk mendefinisikan perilaku Subscriber. Meskipun demikian, penggunaan struct Model sudah cukup karena:
+
+Implementasi Subscriber bersifat tunggal dan konsisten.
+
+Semua subscriber berinteraksi dengan sistem dengan cara yang sama, yaitu melalui notifikasi HTTP.
+
+Perilaku yang dibutuhkan cukup sederhana sehingga tidak diperlukan beberapa variasi implementasi Subscriber.
+
+Menggunakan struct secara langsung menyederhanakan kode dan sesuai dengan prinsip Rust, yang lebih mengutamakan tipe konkret ketika abstraksi tidak diperlukan.
+
+2. Alasan Menggunakan DashMap daripada Vec
+Pemilihan DashMap (struktur map/dictionary) dibandingkan dengan Vec (struktur list) dalam kasus ini didasarkan pada beberapa alasan:
+
+Diperlukan mekanisme yang efisien untuk memastikan ID dan URL tetap unik.
+
+Pencarian subscriber berdasarkan ID merupakan operasi yang sering dilakukan dan harus memiliki waktu akses yang cepat.
+
+DashMap memungkinkan pencarian dengan kompleksitas O(1), jauh lebih baik dibandingkan O(n) pada Vec.
+
+Operasi penambahan dan penghapusan yang sering dilakukan lebih efisien dengan DashMap dibandingkan Vec.
+
+DashMap menawarkan thread-safety, yang sangat penting dalam konteks pengembangan server web.
+
+3. Keunggulan DashMap dibandingkan Pola Singleton
+Penggunaan DashMap lebih disarankan dibandingkan dengan menerapkan pola Singleton karena:
+
+Sistem kepemilikan (ownership system) dalam Rust membuat implementasi Singleton secara tradisional menjadi lebih rumit.
+
+DashMap sudah menyediakan mekanisme thread-safety secara bawaan, yang jika menggunakan Singleton harus diimplementasikan secara manual.
+
+DashMap menangani akses bersamaan (concurrent access) secara efisien, yang sangat penting dalam pengembangan aplikasi web.
+
+Menggunakan pustaka yang telah teruji seperti DashMap dapat mengurangi risiko bug terkait concurrency.
+
+Rust lebih mendorong penggunaan sistem tipe dan model kepemilikan daripada pola desain berbasis OOP tradisional, seperti Singleton, jika tidak benar-benar diperlukan.
+
 #### Reflection Publisher-2
 
 #### Reflection Publisher-3
