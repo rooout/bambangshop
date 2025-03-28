@@ -117,6 +117,45 @@ Rust lebih mendorong penggunaan sistem tipe dan model kepemilikan daripada pola 
 
 #### Reflection Publisher-2
 
+1. Alasan Memisahkan "Service" dan "Repository" dari Model
+Memisahkan Service dan Repository dari Model penting untuk menjaga desain sistem yang bersih dan terstruktur. Berikut beberapa alasannya:
+
+Single Responsibility Principle (SRP): Dengan pemisahan ini, setiap komponen memiliki peran yang jelas. Repository berfokus pada akses data, sementara Service menangani aturan bisnis dan logika pemrosesan.
+
+Separation of Concerns: Memisahkan penyimpanan data, logika bisnis, dan presentasi membuat sistem lebih modular dan lebih mudah dipahami.
+
+Testability: Dengan pemisahan yang jelas, pengujian bisa dilakukan lebih mudah menggunakan mock, tanpa harus menguji seluruh sistem secara bersamaan.
+
+Maintainability: Perubahan pada database tidak akan mempengaruhi logika bisnis, dan sebaliknya. Hal ini memungkinkan pengembangan lebih fleksibel dan paralel.
+
+Scalability: Setiap lapisan dapat diskalakan secara independen sesuai kebutuhan, misalnya peningkatan koneksi database atau pemrosesan bisnis.
+
+2. Dampak Jika Model Menangani Semuanya
+Jika semua fungsi, seperti penyimpanan data dan logika bisnis, diletakkan langsung dalam Model, maka akan muncul beberapa masalah:
+
+Coupling yang Tinggi: Model Program, Subscriber, dan Notification akan saling terikat secara erat, menyebabkan ketergantungan yang sulit dikelola.
+
+Kode Menjadi Kompleks: Model akan menjadi terlalu besar karena menangani banyak fungsi sekaligus, dari penyimpanan hingga pengelolaan notifikasi.
+
+Kohesi yang Menurun: Setiap model akan kehilangan fokus dan menjadi tidak spesifik dalam perannya.
+
+Pengujian Sulit: Pengujian memerlukan seluruh sistem berjalan sekaligus, dibandingkan dengan pendekatan yang lebih modular di mana setiap komponen bisa diuji secara terpisah.
+
+3. Manfaat Mengeksplorasi Postman untuk Pengujian
+Menggunakan Postman sangat membantu dalam menguji sistem dengan lebih terstruktur dan efisien:
+
+Request Collections: Mengelompokkan permintaan API terkait membantu mengelola pengujian berbagai komponen dengan lebih rapi.
+
+Environment Variables: Memungkinkan pengujian dalam berbagai lingkungan (misalnya, pengembangan dan produksi) tanpa perlu mengganti URL secara manual.
+
+Automated Testing: Memungkinkan penulisan skrip untuk memastikan endpoint berfungsi sesuai harapan.
+
+Request Chaining: Menggunakan data dari satu respons untuk permintaan berikutnya memungkinkan pengujian alur kerja yang realistis, misalnya menguji proses berlangganan dan penerimaan notifikasi.
+
+Mock Servers: Postman memungkinkan pembuatan server tiruan yang membantu pengembangan frontend tanpa harus menunggu backend selesai.
+
+Team Collaboration: Koleksi API dapat dibagikan ke tim, sehingga lebih mudah untuk memahami dan menguji sistem bersama.
+
 #### Reflection Publisher-3
 
 1. Model Push dalam Pola Observer pada BambangShop
