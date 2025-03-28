@@ -81,3 +81,42 @@ This is the place for you to write reflections:
 #### Reflection Publisher-2
 
 #### Reflection Publisher-3
+
+1. Model Push dalam Pola Observer pada BambangShop
+Dalam tutorial ini, kita menerapkan variasi model Push dari Pola Observer. Publisher (BambangShop) secara aktif mengirimkan notifikasi berisi data yang relevan kepada subscriber setiap kali terjadi perubahan status, seperti pembuatan produk, penghapusan, atau promosi. Dalam pendekatan ini, publisher menentukan kapan dan data apa yang dikirim dalam payload notifikasi, sementara subscriber hanya bertindak sebagai penerima pasif yang memproses data yang diterima.
+
+2. Keunggulan dan Kelemahan Model Pull
+Keunggulan Model Pull:
+Subscriber hanya mengambil informasi yang dibutuhkan, sehingga dapat mengurangi penggunaan bandwidth.
+
+Subscriber dapat melakukan pembaruan sesuai dengan jadwal mereka sendiri, sehingga mencegah kelebihan beban selama periode aktivitas tinggi.
+
+Hubungan antara publisher dan subscriber lebih longgar, karena publisher tidak perlu mengetahui secara spesifik data apa yang dibutuhkan setiap subscriber.
+
+Memiliki toleransi kesalahan yang lebih baik, karena jika subscriber sementara tidak tersedia, notifikasi tidak akan terlewat begitu saja.
+
+Kelemahan Model Pull:
+Latensi lebih tinggi karena subscriber melakukan polling pada interval tertentu, bukan menerima pembaruan secara langsung.
+
+Beban sistem meningkat akibat polling yang dilakukan oleh banyak subscriber secara bersamaan.
+
+Implementasi lebih kompleks, karena subscriber harus menyimpan statusnya sendiri untuk mendeteksi perubahan.
+
+Potensi inkonsistensi data jika subscriber melakukan polling pada waktu yang berbeda-beda.
+
+Penggunaan sumber daya tidak efisien, terutama jika tidak ada perubahan data tetapi polling tetap dilakukan.
+
+3. Konsekuensi Tidak Menggunakan Multi-Threading dalam Notifikasi
+Jika proses notifikasi dilakukan tanpa multi-threading, beberapa masalah dapat muncul:
+
+Bottleneck kinerja: Notifikasi diproses secara berurutan, sehingga thread utama akan terhambat saat menunggu setiap permintaan HTTP selesai.
+
+Request timeout: Subscriber yang lambat atau tidak responsif dapat menyebabkan seluruh proses notifikasi tertunda.
+
+Skalabilitas rendah: Waktu pengiriman notifikasi meningkat secara linier seiring bertambahnya jumlah subscriber.
+
+Penurunan responsivitas: Aplikasi bisa terasa lambat atau bahkan tidak responsif selama proses penyiaran notifikasi berlangsung.
+
+Potensi deadlock: Jika subscriber mencoba berkomunikasi dengan publisher saat notifikasi masih berlangsung, bisa terjadi kondisi deadlock.
+
+Risiko dampak kegagalan yang lebih besar: Jika ada notifikasi yang gagal, maka prosesnya bisa tertunda atau bahkan menghambat notifikasi ke subscriber lain.
